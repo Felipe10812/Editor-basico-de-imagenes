@@ -1,0 +1,51 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.eggs/
+*.egg
+*.manifest
+*.spec
+.Python
+*.so
+
+# --- Entornos virtuales ---
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+pip-log.txt
+
+# --- Configuración y cachés ---
+.pytest_cache/
+.mypy_cache/
+.coverage
+*.cover
+*.log
+.cache/
+.idea/
+.vscode/
+*.swp
+
+# --- PyInstaller / build ---
+build/
+dist/
+*.spec
+
+# --- Archivos del sistema ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Archivos de pruebas / temporales ---
+*.tmp
+*.bak
+*.old
+*.orig
+
+# --- Archivos de imágenes exportadas (si no quieres subirlas) ---
+# output/
