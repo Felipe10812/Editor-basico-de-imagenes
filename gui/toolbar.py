@@ -21,7 +21,7 @@ class Toolbars:
         tk.Button(toolbar_top, text="Redimensionar", command=self.app.resize_image).pack(side=tk.LEFT, padx=2, pady=2)
         tk.Button(toolbar_top, text="Guardar como...", command=self.app.save_image).pack(side=tk.LEFT, padx=2, pady=2)
         tk.Button(toolbar_top, text="Restablecer", command=self.app.reset_image).pack(side=tk.LEFT, padx=2, pady=2)
-        tk.Button(toolbar_top, text="Cerrar", command=self.root.quit).pack(side=tk.RIGHT, padx=2, pady=2)
+        tk.Button(toolbar_top, text="Cerrar", command=self.app.on_closing).pack(side=tk.RIGHT, padx=2, pady=2)
 
         # Botones de rotación
         tk.Button(toolbar_top, text="Rotar ↺", command=self.app.rotate_left).pack(side=tk.LEFT, padx=2, pady=2)

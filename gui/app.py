@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Toplevel, Label
+from tkinter import Toplevel, Label, messagebox
 import webbrowser
 from PIL import ImageTk
 from core.image_manager import ImageManager
@@ -24,6 +24,7 @@ class ImageEditorApp:
         self.photo = None
         self.display_image = None
         self.scale = 1.0
+        self.has_unsaved_changes = False
         
         # toolbar de rotación
         self.toolbar = Toolbars(self.root, self)
@@ -39,6 +40,9 @@ class ImageEditorApp:
 
         # Atajo de teclado para mostrar la información del autor
         self.root.bind("<Control-l>", self.show_about_info)
+
+        # Interceptar el evento de cierre de la ventana
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         self.rect = None
         self.start_x = self.start_y = self.cur_x = self.cur_y = None
@@ -58,6 +62,7 @@ class ImageEditorApp:
     def reset_image(self):
         self.image_manager.reset()
         self.display_image = self.image_manager.current_image
+        self.has_unsaved_changes = False
         self._render_to_canvas()
         self.clear_rectangle()
 
@@ -132,6 +137,7 @@ class ImageEditorApp:
         self.display_image = cropped
         self._render_to_canvas()
         self.clear_rectangle()
+        self.has_unsaved_changes = True
         show_info(f"Imagen recortada a {cropped.size[0]} x {cropped.size[1]} píxeles")
 
     def resize_image(self):
@@ -160,18 +166,21 @@ class ImageEditorApp:
         self.image_manager.current_image = resized
         self.display_image = resized
         self._render_to_canvas()
+        self.has_unsaved_changes = True
         show_info(f"Imagen redimensionada a {new_w} x {new_h} píxeles")
         
     def rotate_left(self):
         if self.image_manager.current_image:
            self.image_manager.current_image = self.image_manager.current_image.rotate(90, expand=True)
            self.display_image = self.image_manager.current_image
+           self.has_unsaved_changes = True
            self._render_to_canvas()
 
     def rotate_right(self):
         if self.image_manager.current_image:
             self.image_manager.current_image = self.image_manager.current_image.rotate(-90, expand=True)
             self.display_image = self.image_manager.current_image
+            self.has_unsaved_changes = True
             self._render_to_canvas()
     
     def save_image(self):
@@ -183,9 +192,28 @@ class ImageEditorApp:
             return
         try:
             self.image_manager.save(path)
+            self.has_unsaved_changes = False
             show_info(f"Imagen guardada en: {path}")
         except Exception as e:
             show_error(f"No se pudo guardar la imagen:\n{e}")
+
+    def on_closing(self):
+        """Maneja el evento de cierre de la ventana."""
+        if self.has_unsaved_changes:
+            response = messagebox.askyesnocancel(
+                "Salir sin guardar",
+                "Tienes cambios sin guardar. ¿Deseas guardarlos antes de salir?"
+            )
+            if response is True:  # Sí, guardar
+                self.save_image()
+                # Si el usuario no canceló el guardado, cerramos.
+                if not self.has_unsaved_changes:
+                    self.root.destroy()
+            elif response is False:  # No, salir sin guardar
+                self.root.destroy()
+            # Si es None (Cancelar), no hacemos nada.
+        else:
+            self.root.destroy()
 
     def show_about_info(self, event=None):
         """Muestra una ventana personalizada con información del autor y enlace a GitHub."""
