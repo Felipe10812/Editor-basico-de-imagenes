@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+Editor Básico de Imágenes
+Desarrollado por: Felipe Acosta
+"""
+
+# -----------------------------------------------------------------------------
+# Copyright (c) 2025, Felipe Acosta.
+#
+# Licenciado bajo la Licencia MIT.
+# Ver el archivo LICENSE para más detalles.
+# -----------------------------------------------------------------------------
+
 import tkinter as tk
 from gui.app import ImageEditorApp
 

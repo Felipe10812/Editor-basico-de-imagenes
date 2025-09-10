@@ -73,10 +73,16 @@ Para crear un archivo ejecutable independiente, puedes usar `PyInstaller`. Esta 
 
 El archivo ejecutable se encontrará en la carpeta `dist`.
 
+## Autor
+
+*   **Felipe Acosta** - *Desarrollo inicial y mantenimiento* - TuUsuarioDeGitHub
+
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Si deseas mejorar el proyecto, por favor abre un issue o envía un pull request.
 
 ## Licencia
 
-Este proyecto está bajo la Licencia [MIT](LICENSE).
+Este proyecto está bajo la Licencia MIT. Copyright (c) 2024 Felipe Acosta.
+
+Ver el archivo LICENSE para más detalles.

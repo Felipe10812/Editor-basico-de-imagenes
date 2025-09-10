@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import Toplevel, Label
+import webbrowser
 from PIL import ImageTk
 from core.image_manager import ImageManager
 from core.operations import ImageOperations
@@ -34,6 +36,9 @@ class ImageEditorApp:
         self.canvas.bind("<ButtonPress-1>", self.on_button_press)
         self.canvas.bind("<B1-Motion>", self.on_move_press)
         self.canvas.bind("<ButtonRelease-1>", self.on_button_release)
+
+        # Atajo de teclado para mostrar la información del autor
+        self.root.bind("<Control-l>", self.show_about_info)
 
         self.rect = None
         self.start_x = self.start_y = self.cur_x = self.cur_y = None
@@ -181,3 +186,40 @@ class ImageEditorApp:
             show_info(f"Imagen guardada en: {path}")
         except Exception as e:
             show_error(f"No se pudo guardar la imagen:\n{e}")
+
+    def show_about_info(self, event=None):
+        """Muestra una ventana personalizada con información del autor y enlace a GitHub."""
+        about_window = Toplevel(self.root)
+        about_window.title("Acerca de Image Editor")
+        about_window.geometry("400x220")
+        about_window.resizable(False, False)
+        about_window.transient(self.root) # Mantener la ventana por encima de la principal
+
+        # Centrar la ventana de "Acerca de" relativa a la ventana principal
+        root_x = self.root.winfo_x()
+        root_y = self.root.winfo_y()
+        root_w = self.root.winfo_width()
+        root_h = self.root.winfo_height()
+        win_w = 400
+        win_h = 220
+        x = root_x + (root_w // 2) - (win_w // 2)
+        y = root_y + (root_h // 2) - (win_h // 2)
+        about_window.geometry(f'+{x}+{y}')
+
+        main_message = (
+            "Editor Básico de Imágenes v1.0\n\n"
+            "Desarrollado por: Felipe Acosta\n"
+            "Copyright © 2025, Felipe Acosta."
+        )
+        Label(about_window, text=main_message, justify=tk.CENTER, padx=10, pady=10).pack()
+
+        github_url = "https://github.com/Felipe10812" # 👈 ¡RECUERDA CAMBIAR ESTO!
+        link_label = Label(about_window, text="Perfil de GitHub", fg="blue", cursor="hand2")
+        link_label.pack(pady=5)
+        link_label.bind("<Button-1>", lambda e: webbrowser.open_new(github_url))
+
+        license_message = "Este programa está licenciado bajo la Licencia MIT."
+        Label(about_window, text=license_message, justify=tk.CENTER, padx=10, pady=10).pack()
+
+        about_window.grab_set() # Bloquear interacción con la ventana principal
+        self.root.wait_window(about_window) # Esperar a que se cierre la ventana de "Acerca de"
