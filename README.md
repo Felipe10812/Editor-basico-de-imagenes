@@ -6,19 +6,26 @@ Este proyecto es un editor de imágenes básico que permite realizar operaciones
 
 ```
 image_editor/
-│
-├── main.py                  # Punto de entrada
+├── main.py                 # Punto de entrada
+|
 ├── gui/
-│   ├── app.py               # Clase principal de la GUI
-│   └── toolbar.py           # Barra de botones
+│   ├── app.py              # Clase principal de la GUI
+│   └── toolbar.py          # Barra de botones
+|
 ├── core/
-│   ├── image_manager.py     # Carga, guarda, resetea y manipula imágenes
-│   └── operations.py        # Crop, resize, etc.
-└── utils/
-    └── dialogs.py            # Funciones para cuadros de diálogo
-├── requirements.txt
-└── README.md
+│   ├── image_manager.py    # Carga, guarda, resetea y manipula imágenes
+│   └── operations.py       # Crop, resize, etc.
+|
+├── utils/
+│   └── dialogs.py          # Funciones para cuadros de diálogo
+|
+├── requirements.txt        # Dependencias del proyecto
+└── README.md               
 ```
+
+## Requisitos
+Los requisitos se encuentran en el archivo [requirements.txt](requirements.txt).
+
 
 ## Instalación
 
@@ -35,7 +42,8 @@ pip install -r requirements.txt
 Para iniciar el editor de imágenes, ejecuta el archivo `main.py`:
 
 ```
-python src/main.py
+python main.py
+
 ```
 
 ## Funcionalidades
@@ -48,7 +56,9 @@ python src/main.py
 
 ## Creación del Ejecutable
 
-Para crear un archivo ejecutable independiente que no requiera que los usuarios tengan Python instalado, puedes usar `PyInstaller`.
+Para crear un archivo ejecutable independiente, puedes usar `PyInstaller`. Esta herramienta ya está incluida en el archivo `requirements.txt`, por lo que se instalará junto con las demás dependencias al seguir los pasos de la sección 
+
+**Instalación**.
 
 1. Instala `PyInstaller`:
    ```
@@ -56,10 +66,12 @@ Para crear un archivo ejecutable independiente que no requiera que los usuarios 
    ```
 2. Genera el ejecutable desde el directorio raíz del proyecto:
    ```
-   pyinstaller --onefile --windowed --name="ImageEditor" src/main.py
-   pyinstaller --onefile --windowed --name="ImageEditor" main.py
+   python -m PyInstaller --onefile --windowed --name="ImageEditor" main.py
    ```
    El archivo ejecutable se encontrará en la carpeta `dist`.
+
+
+El archivo ejecutable se encontrará en la carpeta `dist`.
 
 ## Contribuciones
 
@@ -67,4 +79,4 @@ Las contribuciones son bienvenidas. Si deseas mejorar el proyecto, por favor abr
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT.
+Este proyecto está bajo la Licencia [MIT](LICENSE).
