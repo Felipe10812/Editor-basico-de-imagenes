@@ -8,11 +8,19 @@ from utils.dialogs import ask_image_path, ask_save_path, ask_resize_dimensions, 
 from gui.toolbar import Toolbars  # 👈 importamos las toolbars
 
 class ImageEditorApp:
-    def __init__(self, root):
+    def __init__(self, root, resource_path_func):
         self.root = root
         self.root.title("Editor de Imágenes")
+        self.resource_path = resource_path_func
 
-        # 🔹 Ventana adaptable a pantalla completa
+        # Establecer el icono de la ventana
+        try:
+            icon_path = self.resource_path('assets/gridman.ico')
+            self.root.iconbitmap(icon_path)
+        except tk.TclError:
+            print(f"Advertencia: No se encontró el icono. Se usará el icono por defecto.")
+
+        # Ventana adaptable a pantalla completa
         screen_w = root.winfo_screenwidth()
         screen_h = root.winfo_screenheight()
         default_w = screen_w // 2  # ancho por defecto: la mitad de la pantalla
@@ -29,7 +37,7 @@ class ImageEditorApp:
         # toolbar de rotación
         self.toolbar = Toolbars(self.root, self)
 
-        
+        # Canvas para mostrar la imagen        
         self.canvas = tk.Canvas(root, cursor="cross", bg="#333333")
         self.canvas.pack(fill=tk.BOTH, expand=True)
 

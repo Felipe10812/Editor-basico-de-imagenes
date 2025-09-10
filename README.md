@@ -66,7 +66,7 @@ Para crear un archivo ejecutable independiente, puedes usar `PyInstaller`. Esta 
    ```
 2. Genera el ejecutable desde el directorio raíz del proyecto:
    ```
-   python -m PyInstaller --onefile --windowed --name="ImageEditor" main.py
+   python -m PyInstaller --onefile --windowed --name="ImageEditor" --icon="assets/gridman.ico" --add-data "assets;assets" main.py
    ```
    El archivo ejecutable se encontrará en la carpeta `dist`.
 
